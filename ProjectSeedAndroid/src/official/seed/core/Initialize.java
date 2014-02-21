@@ -15,8 +15,7 @@ public class Initialize extends Application {
 	public void onCreate() {
 		super.onCreate();
 		Parse.initialize(this, PARSE_APPID, PARSE_CLIENT);
-		ParseFacebookUtils.initialize(getString(R.string.fb_appid));
-
+		ParseFacebookUtils.initialize("1424091494500320");
 	}
 	
 }

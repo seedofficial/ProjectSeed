@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7F3"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/plat_btn_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#2BBDA2"
+            android:text="Private"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/plant_btn_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:text="Public"
+            android:textColor="#B0B1A8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/plant_ll_loc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <View
+            android:id="@+id/plant_view_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="#2BBDA2" />
+
+        <TextView
+            android:id="@+id/plant_txt_loc"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:text="Pick a place"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/plant_ll_frd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/plant_ll_loc"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <View
+            android:id="@+id/plant_view_frd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="#2BBDA2"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/plant_txt_frd"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:text="Pick some friends"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/plant_ll_frd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:padding="10dp"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <ImageButton
+            android:id="@+id/plant_btn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/com_facebook_button_grey_normal" />
+
+        <ImageButton
+            android:id="@+id/plant_btn_img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/com_facebook_button_grey_normal" />
+
+        <ImageButton
+            android:id="@+id/plant_btn_img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/com_facebook_button_grey_normal" />
+
+        <ImageButton
+            android:id="@+id/plant_btn_img_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/com_facebook_button_grey_normal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:text="下一步"
+        android:textColor="#2BBDA2" />
+
+</RelativeLayout>

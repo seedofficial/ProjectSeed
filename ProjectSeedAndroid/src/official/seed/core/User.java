@@ -11,8 +11,6 @@ public class User {
 	public interface UserInitializationListener {
 		public void login();
 
-		public void verify();
-
 		public void prompt();
 	}
 
@@ -25,11 +23,9 @@ public class User {
 	public static final void initialize(UserInitializationListener listener) {
 		final ParseUser user = ParseUser.getCurrentUser();
 		if (user != null) { // logged in
-//			new BaseActivity().showProgressDialog();
+		// new BaseActivity().showProgressDialog();
 			if (user.getBoolean("verified")) { // account verified
 				listener.login();
-			} else { // needs to login
-				listener.verify();
 			}
 		} else { // needs to login
 			listener.prompt();
@@ -56,7 +52,6 @@ public class User {
 			}
 		});
 	}
-
 
 	public static void resetPassword(String email) {
 	}
