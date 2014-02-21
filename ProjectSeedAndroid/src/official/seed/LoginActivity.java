@@ -28,24 +28,32 @@ public class LoginActivity extends BaseActivity implements ActivityInitiializati
 	}
 
 	private void onLoginButtonClicked() {
-		List<String> permissions = Arrays.asList("basic_info", "user_about_me",
-				"user_relationships", "user_birthday", "user_location");
-		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
-			@Override
-			public void done(ParseUser user, ParseException err) {
-				if (err == null) {
-					if (user == null) {
-						Log.d("Facebook Related", "Uh oh. The user cancelled the Facebook login.");
-					} else if (user.isNew()) {
-						Log.d("Facebook Related", "User signed up and logged in through Facebook!");
+		if (ParseUser.getCurrentUser() == null ) {
+			List<String> permissions = Arrays.asList("basic_info", "user_about_me",
+					"user_relationships", "user_birthday", "user_location");
+			ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
+				@Override
+				public void done(ParseUser user, ParseException err) {
+					if (err == null) {
+						if (user == null) {
+							Log.d("Facebook Related",
+									"Uh oh. The user cancelled the Facebook login.");
+						} else if (user.isNew()) {
+							Log.d("Facebook Related",
+									"User signed up and logged in through Facebook!");
+						} else {
+							Log.d("Facebook Related", "User logged in through Facebook!");
+						}
 					} else {
-						Log.d("Facebook Related", "User logged in through Facebook!");
+						Log.v("facebook", err.getMessage());
 					}
-				}else{
-					Log.v("facebook",err.getMessage());
 				}
-			}
-		});
+			});
+		}else{
+			ParseFacebookUtils.getSession().closeAndClearTokenInformation();
+			ParseUser.logOut();
+			finish();
+		}
 	}
 
 	@Override

@@ -1,14 +1,23 @@
 package official.seed;
 
-import android.view.ContextMenu;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
+import official.seed.BaseActivity.ActivityInitiialization;
+import android.os.Bundle;
 
-public class PlantActivity extends BaseActivity{
+public class PlantActivity extends BaseActivity implements ActivityInitiialization{
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_plant);
+	}
+
+	@Override
+	public void localInit() {
+		
+	}
+
+	@Override
+	public void functionInit() {
+		
 	}
 }
