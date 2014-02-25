@@ -4,7 +4,8 @@ import official.seed.core.User;
 import official.seed.core.User.UserInitializationListener;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.StrictMode;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class BaseActivity extends Activity implements UserInitializationListener {
 
@@ -12,10 +13,11 @@ public class BaseActivity extends Activity implements UserInitializationListener
 		public void localInit();
 		public void functionInit();
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		User.initialize(this);
 	}
 
@@ -26,6 +28,6 @@ public class BaseActivity extends Activity implements UserInitializationListener
 	@Override
 	public void prompt() {
 	}
-	
 
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
 }

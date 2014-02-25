@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 	<string name="fb_appid">1424091494500320</string>
+	<string name="error_dialog_title">Error</string>
+<string name="error_dialog_button_text">OK</string>
 </resources>

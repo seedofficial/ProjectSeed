@@ -87,16 +87,18 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
+            android:clickable="true"
             android:gravity="left|center_vertical"
             android:maxLines="1"
             android:minHeight="48dp"
             android:padding="10dp"
             android:text="Pick some friends"
             android:textSize="16sp" />
+
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/plantfb_txt_to"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@+id/plant_ll_frd"
@@ -113,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/plantfb_txt_to"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp" >
