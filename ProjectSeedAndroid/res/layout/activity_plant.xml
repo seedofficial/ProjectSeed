@@ -43,16 +43,9 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp" >
 
-        <View
-            android:id="@+id/plant_view_loc"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="#2BBDA2" />
-
         <TextView
             android:id="@+id/plant_txt_loc"
-            android:layout_width="250dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:gravity="left|center_vertical"
@@ -74,26 +67,24 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp" >
 
-        <View
-            android:id="@+id/plant_view_frd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="#2BBDA2"
-            android:scaleType="centerCrop" />
-
-        <TextView
+        <MultiAutoCompleteTextView
             android:id="@+id/plant_txt_frd"
-            android:layout_width="250dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView1"
             android:background="#FFFFFF"
             android:clickable="true"
-            android:gravity="left|center_vertical"
-            android:maxLines="1"
+            android:ems="10"
+            android:hint="Pick some friends"
+            android:inputType="none"
             android:minHeight="48dp"
-            android:padding="10dp"
-            android:text="Pick some friends"
-            android:textSize="16sp" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="16sp" >
+
+    </MultiAutoCompleteTextView>
 
     </LinearLayout>
 

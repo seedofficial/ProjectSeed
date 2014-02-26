@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -28,7 +29,8 @@ public class LoginActivity extends BaseActivity implements ActivityInitiializati
 	}
 
 	private void onLoginButtonClicked() {
-		if (ParseUser.getCurrentUser() == null ) {
+		hideProgressDialog();
+		if (ParseUser.getCurrentUser() == null) {
 			List<String> permissions = Arrays.asList("basic_info", "user_about_me",
 					"user_relationships", "user_birthday", "user_location");
 			ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
@@ -38,18 +40,30 @@ public class LoginActivity extends BaseActivity implements ActivityInitiializati
 						if (user == null) {
 							Log.d("Facebook Related",
 									"Uh oh. The user cancelled the Facebook login.");
+							Toast.makeText(getApplicationContext(), "Why Cancelled",
+									Toast.LENGTH_LONG).show();
+							hideProgressDialog();
+							finish();
 						} else if (user.isNew()) {
 							Log.d("Facebook Related",
 									"User signed up and logged in through Facebook!");
+							Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_LONG)
+									.show();
+							hideProgressDialog();
+							finish();
 						} else {
 							Log.d("Facebook Related", "User logged in through Facebook!");
+							Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_LONG)
+									.show();
+							hideProgressDialog();
+							finish();
 						}
 					} else {
 						Log.v("facebook", err.getMessage());
 					}
 				}
 			});
-		}else{
+		} else {
 			ParseFacebookUtils.getSession().closeAndClearTokenInformation();
 			ParseUser.logOut();
 			finish();

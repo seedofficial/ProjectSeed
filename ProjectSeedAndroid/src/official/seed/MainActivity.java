@@ -1,5 +1,6 @@
 package official.seed;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,6 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 public class MainActivity extends BaseActivity {
-
 	private Button btnPlant;
 	private GoogleMap map;
 	private LatLng HK;
@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
 		return true;
 	}
 
+
 	private void localInit() {
 		btnPlant = (Button) findViewById(R.id.main_btn_plant);
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -53,27 +54,8 @@ public class MainActivity extends BaseActivity {
 			public void onClick(View v) {
 				if (ParseUser.getCurrentUser() == null) {
 					Log.d("Facebook Related", "No Session");
-					// Intent i = new Intent(MainActivity.this,
-					// LoginActivity.class);
-					// startActivity(i);
-					ParseFacebookUtils.logIn(getParent(), new LogInCallback() {
-						@Override
-						public void done(ParseUser user, ParseException e) {
-							if (e == null) {
-								if (user == null) {
-									Toast.makeText(getApplicationContext(), "Why Cancelled",Toast.LENGTH_LONG).show();
-								} else if (user.isNew()) {
-									Toast.makeText(getApplicationContext(), "Welcome!",Toast.LENGTH_LONG).show();
-									Intent i = new Intent(MainActivity.this, PlantActivity.class);
-									startActivity(i);
-								} else {
-									Log.d("Facebook Related", "User logged in through Facebook!");
-								}
-							} else {
-								Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-							}
-						}
-					});
+					Intent i = new Intent(MainActivity.this, LoginActivity.class);
+					startActivity(i);
 				} else {
 					Log.d("Facebook Related", "Got Session");
 					Intent i = new Intent(MainActivity.this, PlantActivity.class);

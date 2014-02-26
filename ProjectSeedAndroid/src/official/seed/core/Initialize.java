@@ -47,4 +47,5 @@ public class Initialize extends Application {
 				.build();
 		ImageLoader.getInstance().init(config);
 	}
+	
 }

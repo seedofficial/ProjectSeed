@@ -13,9 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -23,6 +23,9 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -30,6 +33,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
@@ -65,6 +69,25 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 		functionInit();
 		this.getWindow()
 				.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_plantfacebook_friendlist, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_fb_confirm:
+			onConfirmClick();
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -106,7 +129,7 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 					Log.v("selectedFriends", "Add");
 					selected.put(adapter.getFacebookId(position), adapter.getName(position));
 					bubbleTxt.append(adapter.getName(position) + ",");
-					setChips();
+					setChips(bubbleTxt);
 				}
 			}
 		});
@@ -116,6 +139,13 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 				.showImageOnFail(R.drawable.com_facebook_profile_picture_blank_square)
 				.cacheInMemory(true).cacheOnDisc(true).considerExifParams(true)
 				.displayer(new SimpleBitmapDisplayer()).build();
+	}
+
+	private void onConfirmClick() {
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra("selectedList", selected);
+		this.setResult(3, resultIntent);
+		finish();
 	}
 
 	private List<HashMap<String, String>> getParsedList(JSONObject jsonRaw) {
@@ -228,52 +258,5 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 		}
 	}
 
-	public void setChips() {
-		if (bubbleTxt.getText().toString().contains(" ")) // check comman in
-															// string
-		{
-
-			SpannableStringBuilder ssb = new SpannableStringBuilder(bubbleTxt.getText());
-			// split string wich comma
-			String chips[] = bubbleTxt.getText().toString().trim().split(",");
-			int x = 0;
-			// loop will generate ImageSpan for every country name separated by
-			// comma
-			for (String c : chips) {
-				// inflate chips_edittext layout
-				LayoutInflater lf = (LayoutInflater) bubbleTxt.getContext().getSystemService(
-						Activity.LAYOUT_INFLATER_SERVICE);
-				TextView textView = (TextView) lf.inflate(R.layout.bubble_edittext, null);
-				textView.setText(c); // set text
-				// setFlags(textView, c); // set flag image
-				// capture bitmapt of genreated textview
-				int spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-				textView.measure(spec, spec);
-				textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
-				Bitmap b = Bitmap.createBitmap(textView.getWidth(), textView.getHeight(),
-						Bitmap.Config.ARGB_8888);
-				Canvas canvas = new Canvas(b);
-				canvas.translate(-textView.getScrollX(), -textView.getScrollY());
-				textView.draw(canvas);
-				textView.setDrawingCacheEnabled(true);
-				Bitmap cacheBmp = textView.getDrawingCache();
-				Bitmap viewBmp = cacheBmp.copy(Bitmap.Config.ARGB_8888, true);
-				textView.destroyDrawingCache(); // destory drawable
-				// create bitmap drawable for imagespan
-				BitmapDrawable bmpDrawable = new BitmapDrawable(viewBmp);
-				bmpDrawable.setBounds(0, 0, bmpDrawable.getIntrinsicWidth(),
-						bmpDrawable.getIntrinsicHeight());
-				// create and set imagespan
-				ssb.setSpan(new ImageSpan(bmpDrawable), x, x + c.length(),
-						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				x = x + c.length() + 1;
-			}
-			// set chips span
-			bubbleTxt.setText(ssb);
-			// move cursor to last
-			bubbleTxt.setSelection(bubbleTxt.getText().length());
-		}
-
-	}
 
 }

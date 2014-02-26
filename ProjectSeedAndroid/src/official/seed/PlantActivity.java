@@ -1,30 +1,37 @@
 package official.seed;
 
-import com.facebook.UiLifecycleHelper;
+import java.util.HashMap;
+import java.util.Map;
 
 import official.seed.BaseActivity.ActivityInitiialization;
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.view.WindowManager;
+import android.widget.MultiAutoCompleteTextView;
+
+import com.facebook.UiLifecycleHelper;
 
 public class PlantActivity extends BaseActivity implements ActivityInitiialization {
-	private TextView txtFacebookFrd;
 	private UiLifecycleHelper uiHelper;
+	private MultiAutoCompleteTextView txtFacebookFrd;
+	private HashMap<String, String> pendingData;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_plant);
 		localInit();
 		functionInit();
+		this.getWindow()
+				.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
 	public void localInit() {
-		txtFacebookFrd = (TextView) findViewById(R.id.plant_txt_frd);
+		txtFacebookFrd = (MultiAutoCompleteTextView) findViewById(R.id.plant_txt_frd);
 	}
 
 	@Override
@@ -32,20 +39,41 @@ public class PlantActivity extends BaseActivity implements ActivityInitiializati
 		txtFacebookFrd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(PlantActivity.this, PlantFacebookFriendList.class));
-//				startPickerActivity(PickFriendsActivity.FRIEND_PICKER, 2);
+				startActivityForResult(
+						new Intent(PlantActivity.this, PlantFacebookFriendList.class), 1);
 			}
 		});
 	}
 
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 2) {
+		Log.v("Comeback", "YES");
+		switch (requestCode) {
+		case 1:
+			if (resultCode == 3) {
+				pendingData = (HashMap<String, String>) data.getSerializableExtra("selectedList");
+				if (pendingData != null) {
+					setTxtBubble(pendingData);
+				}
+			}
+			break;
+		case 2:
 			uiHelper.onActivityResult(requestCode, resultCode, data);
-		} else if (resultCode == Activity.RESULT_OK) {
-			// Do nothing for now
+			break;
+		default:
+			break;
 		}
+
+	}
+
+	private void setTxtBubble(HashMap<String, String> data) {
+		Map<String, String> map = data;
+
+		for (String key : map.keySet()) {
+			txtFacebookFrd.append(map.get(key) + ",");
+		}
+
+		setChips(txtFacebookFrd);
 	}
 }
