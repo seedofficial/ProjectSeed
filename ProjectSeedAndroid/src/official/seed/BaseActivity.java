@@ -1,5 +1,8 @@
 package official.seed;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import official.seed.core.User;
 import official.seed.core.User.UserInitializationListener;
 import android.app.Activity;
@@ -119,5 +122,15 @@ public class BaseActivity extends Activity implements UserInitializationListener
 			target.setSelection(target.getText().length());
 		}
 
+	}
+	
+	public void setTxtBubble(HashMap<String, String> data, MultiAutoCompleteTextView targetEditText) {
+		Map<String, String> map = data;
+
+		for (String key : map.keySet()) {
+			targetEditText.append(map.get(key) + ",");
+		}
+
+		setChips(targetEditText);
 	}
 }

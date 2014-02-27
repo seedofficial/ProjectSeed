@@ -58,7 +58,7 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 	private List<HashMap<String, String>> data;
 	private HashMap<String, String> selected;
 	private DisplayImageOptions options;
-	private Bundle params;
+	private Bundle params, fromBundle;
 	private MultiAutoCompleteTextView bubbleTxt;
 
 	@Override
@@ -92,10 +92,16 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 
 	@Override
 	public void localInit() {
+		fromBundle = getIntent().getExtras();
 		list = (ListView) findViewById(R.id.fb_listview);
 		params = new Bundle();
 		bubbleTxt = (MultiAutoCompleteTextView) findViewById(R.id.fb_list_txt);
-		selected = new HashMap<String, String>();
+//		if (selected == null) {
+//			selected = new HashMap<String, String>();
+//		}
+		selected = (HashMap<String, String>) fromBundle.getSerializable("selectedList");
+		setTxtBubble(selected, bubbleTxt);
+
 	}
 
 	@Override
@@ -257,6 +263,5 @@ public class PlantFacebookFriendList extends BaseActivity implements ActivityIni
 			}
 		}
 	}
-
 
 }
